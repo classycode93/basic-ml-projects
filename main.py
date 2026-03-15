@@ -1,23 +1,24 @@
 
 from src.data_loader import load_data
-from src.preprocessing import build_corpus
-from src.sequence_generator import create_sequences
-from src.model import create_model
-from src.generator import generate_text
+from src.preprocessing import prepare_data
+from src.train import train_model
+from src.predict import predict_prices
 
 def main():
 
-    corpus = load_data("data")
+    df = load_data("data/prices.csv", "GOOG")
 
-    input_sequences, total_words = create_sequences(corpus)
+    forecast_col = "close"
+    forecast_out = 5
+    test_size = 0.2
 
-    predictors, label, max_sequence_len = build_corpus(input_sequences, total_words)
+    X_train, X_test, y_train, y_test, X_lately = prepare_data(
+        df, forecast_col, forecast_out, test_size
+    )
 
-    model = create_model(max_sequence_len, total_words)
+    model = train_model(X_train, y_train)
 
-    model.fit(predictors, label, epochs=10)
-
-    print(generate_text("spiderman", 5, model, max_sequence_len))
+    predict_prices(model, X_test, y_test, X_lately)
 
 if __name__ == "__main__":
     main()

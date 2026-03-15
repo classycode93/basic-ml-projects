@@ -1,30 +1,23 @@
 
-# YouTube Title Generator using LSTM
+# Stock Price Prediction using Machine Learning
 
-This project trains an LSTM neural network to generate YouTube video titles
-based on trending video datasets.
+This project predicts future stock prices using a Linear Regression model.
 
 ## Features
-- NLP preprocessing
-- Tokenization and n-gram generation
-- Sequence padding
-- LSTM deep learning model
-- Title generation from seed text
+- Data preprocessing
+- Train/Test split
+- Linear Regression model
+- Forecast future stock prices
 
 ## Dataset
-YouTube Trending Videos Dataset (US, CA, GB)
+Dataset required: prices.csv
 
-Files needed:
-- USvideos.csv
-- CAvideos.csv
-- GBvideos.csv
-- US_category_id.json
-- CA_category_id.json
-- GB_category_id.json
+Example columns:
+date, symbol, open, close, low, high, volume
 
-Place them in the **data/** folder.
+Place the dataset inside the **data/** folder.
 
-## Run
+## Run the Project
 
 pip install -r requirements.txt
 python main.py

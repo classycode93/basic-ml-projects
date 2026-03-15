@@ -1,19 +1,26 @@
 
 import numpy as np
-from keras.preprocessing.sequence import pad_sequences
-import keras.utils as ku
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
 
-def build_corpus(input_sequences, total_words):
+def prepare_data(df, forecast_col, forecast_out, test_size):
 
-    max_sequence_len = max([len(x) for x in input_sequences])
+    label = df[forecast_col].shift(-forecast_out)
 
-    input_sequences = np.array(
-        pad_sequences(input_sequences, maxlen=max_sequence_len, padding="pre")
+    X = np.array(df[[forecast_col]])
+
+    X = preprocessing.scale(X)
+
+    X_lately = X[-forecast_out:]
+
+    X = X[:-forecast_out]
+
+    label.dropna(inplace=True)
+
+    y = np.array(label)
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=test_size, random_state=0
     )
 
-    predictors = input_sequences[:, :-1]
-    label = input_sequences[:, -1]
-
-    label = ku.to_categorical(label, num_classes=total_words)
-
-    return predictors, label, max_sequence_len
+    return X_train, X_test, y_train, y_test, X_lately

@@ -1,18 +1,18 @@
 
 from src.data_loader import load_data
-from src.preprocessing import preprocess_data
-from src.train import train_model
-from src.evaluate import evaluate_model
+from src.preprocessing import clean_data
+from src.cluster import run_kmeans
+from src.evaluate import evaluate_clusters
 
 def main():
 
-    df = load_data("data/database.csv")
+    data = load_data("data/online_shoppers_intention.csv")
 
-    X_train, X_test, y_train, y_test = preprocess_data(df)
+    data = clean_data(data)
 
-    model = train_model(X_train, y_train)
+    x, labels_pred = run_kmeans(data)
 
-    evaluate_model(model, X_test, y_test)
+    evaluate_clusters(data, labels_pred)
 
 if __name__ == "__main__":
     main()

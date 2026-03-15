@@ -1,22 +1,20 @@
 
-# Earthquake Prediction using Machine Learning
+# Online Shopping Intention Analysis using Machine Learning
 
-This project demonstrates how to build a neural network model to predict earthquake
-magnitude and depth using historical seismic data.
+This project analyzes customer behavior on an e-commerce website and groups users
+into clusters such as interested buyers and uninterested visitors using K-Means clustering.
 
 ## Features
 - Data preprocessing
-- Timestamp conversion
-- Data visualization
-- Neural network model
-- Hyperparameter tuning
+- Missing value handling
+- Elbow method for optimal clusters
+- K-Means clustering
+- Visualization of customer segments
+- Evaluation using Adjusted Rand Index and confusion matrix
 
 ## Dataset
 
-Dataset required: database.csv
-
-Columns used:
-Date, Time, Latitude, Longitude, Depth, Magnitude
+Dataset required: online_shoppers_intention.csv
 
 Place dataset inside the **data/** folder.
 

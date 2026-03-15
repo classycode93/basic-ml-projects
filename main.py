@@ -1,19 +1,18 @@
 
-from src.video_processing import extract_frames
-from src.compare import compare_sample_frames
+from src.data_loader import load_data
+from src.preprocessing import preprocess_data
+from src.train import train_model
+from src.evaluate import evaluate_model
 
 def main():
 
-    real_video = "data/real_video.avi"
-    fake_video = "data/fake_video.avi"
+    df = load_data("data/database.csv")
 
-    real_frames = "outputs/real_frames"
-    fake_frames = "outputs/fake_frames"
+    X_train, X_test, y_train, y_test = preprocess_data(df)
 
-    extract_frames(real_video, real_frames)
-    extract_frames(fake_video, fake_frames)
+    model = train_model(X_train, y_train)
 
-    compare_sample_frames(real_frames, fake_frames)
+    evaluate_model(model, X_test, y_test)
 
 if __name__ == "__main__":
     main()

@@ -1,10 +1,10 @@
 
 import pandas as pd
 
-def load_data(path, symbol):
+def load_data(path):
 
-    df = pd.read_csv(path)
+    data = pd.read_csv(path)
 
-    df = df[df.symbol == symbol]
+    data = data[['Date','Time','Latitude','Longitude','Depth','Magnitude']]
 
-    return df
+    return data

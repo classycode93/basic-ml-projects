@@ -1,13 +1,21 @@
 
-from sklearn.linear_model import LinearRegression
-import joblib
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
 
 def train_model(X_train, y_train):
 
-    model = LinearRegression()
+    model = Sequential()
 
-    model.fit(X_train, y_train)
+    model.add(Dense(16, activation='relu', input_shape=(3,)))
+    model.add(Dense(16, activation='relu'))
+    model.add(Dense(2, activation='softmax'))
 
-    joblib.dump(model, "models/linear_regression_stock.pkl")
+    model.compile(
+        optimizer='SGD',
+        loss='squared_hinge',
+        metrics=['accuracy']
+    )
+
+    model.fit(X_train, y_train, epochs=10, batch_size=10)
 
     return model

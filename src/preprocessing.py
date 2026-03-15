@@ -1,26 +1,32 @@
 
-import numpy as np
-from sklearn import preprocessing
+import pandas as pd
+import datetime
+import time
 from sklearn.model_selection import train_test_split
 
-def prepare_data(df, forecast_col, forecast_out, test_size):
+def preprocess_data(data):
 
-    label = df[forecast_col].shift(-forecast_out)
+    timestamp = []
 
-    X = np.array(df[[forecast_col]])
+    for d, t in zip(data['Date'], data['Time']):
 
-    X = preprocessing.scale(X)
+        try:
+            ts = datetime.datetime.strptime(d+' '+t,'%m/%d/%Y %H:%M:%S')
+            timestamp.append(time.mktime(ts.timetuple()))
+        except:
+            timestamp.append(None)
 
-    X_lately = X[-forecast_out:]
+    data['Timestamp'] = timestamp
 
-    X = X[:-forecast_out]
+    data = data.drop(['Date','Time'], axis=1)
 
-    label.dropna(inplace=True)
+    data = data.dropna()
 
-    y = np.array(label)
+    X = data[['Timestamp','Latitude','Longitude']]
+    y = data[['Magnitude','Depth']]
 
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=test_size, random_state=0
+        X, y, test_size=0.2, random_state=42
     )
 
-    return X_train, X_test, y_train, y_test, X_lately
+    return X_train, X_test, y_train, y_test

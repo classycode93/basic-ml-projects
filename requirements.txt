@@ -1,7 +1,8 @@
 
-pandas
 numpy
-scikit-learn
+pandas
+opencv-python
 matplotlib
-seaborn
-joblib
+scikit-image
+mtcnn
+glob2

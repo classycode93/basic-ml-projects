@@ -1,23 +1,19 @@
 
-# Stock Price Prediction using Machine Learning
+# Deepfake Detection using Python and Machine Learning
 
-This project predicts future stock prices using a Linear Regression model.
-
-## Features
-- Data preprocessing
-- Train/Test split
-- Linear Regression model
-- Forecast future stock prices
+This project demonstrates a simple approach to detecting deepfake videos by:
+- Extracting frames from videos
+- Detecting faces using MTCNN
+- Comparing frames using MSE and SSIM
 
 ## Dataset
-Dataset required: prices.csv
+Provide two videos:
+- real_video.avi
+- fake_video.avi
 
-Example columns:
-date, symbol, open, close, low, high, volume
+Place them inside the **data/** folder.
 
-Place the dataset inside the **data/** folder.
-
-## Run the Project
+## Run
 
 pip install -r requirements.txt
 python main.py

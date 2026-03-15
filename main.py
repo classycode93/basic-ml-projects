@@ -1,24 +1,19 @@
 
-from src.data_loader import load_data
-from src.preprocessing import prepare_data
-from src.train import train_model
-from src.predict import predict_prices
+from src.video_processing import extract_frames
+from src.compare import compare_sample_frames
 
 def main():
 
-    df = load_data("data/prices.csv", "GOOG")
+    real_video = "data/real_video.avi"
+    fake_video = "data/fake_video.avi"
 
-    forecast_col = "close"
-    forecast_out = 5
-    test_size = 0.2
+    real_frames = "outputs/real_frames"
+    fake_frames = "outputs/fake_frames"
 
-    X_train, X_test, y_train, y_test, X_lately = prepare_data(
-        df, forecast_col, forecast_out, test_size
-    )
+    extract_frames(real_video, real_frames)
+    extract_frames(fake_video, fake_frames)
 
-    model = train_model(X_train, y_train)
-
-    predict_prices(model, X_test, y_test, X_lately)
+    compare_sample_frames(real_frames, fake_frames)
 
 if __name__ == "__main__":
     main()
